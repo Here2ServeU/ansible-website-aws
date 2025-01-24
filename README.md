@@ -367,7 +367,7 @@ nano index.html
 
 
 ### Step 4: Configure Ansible Inventory
-**Add the Nodes to the Hosts file on the Controller Node:**
+**Option One: Add the Nodes to the Hosts file on the Controller Node:**
 ```bash
 sudo nano /etc/ansible/hosts
 ```
@@ -377,9 +377,9 @@ sudo nano /etc/ansible/hosts
 node1 ansible_host=<Public_IP_Address> ansible_user=ubuntu ansible_ssh_private_key_file=~/.ssh/id_ed25519
 ```
 
-**Create an Inventory File**
+**Option Two (Better): Create an Inventory File**
 ```bash
-nano inventory.yml
+nano /etc/ansible/inventory.yml
 ```
 - Add the following content:
 ```ini
@@ -406,7 +406,7 @@ all:
 
 **Test Connection:**
 ```bash
-ansible -m ping webservers
+ansible -i /etc/ansible/inventory.yml -m ping all
 ```
 
 **Deploy Website**
@@ -461,7 +461,7 @@ ansible -m ping webservers
 **Run the Playbook**
 - Execute the playbook:
 ```bash
-ansible-playbook -i inventory.yml deploy_website.yml
+ansible-playbook -i /etc/ansible/inventory.yml deploy_website.yml
 ```
 
 ---
